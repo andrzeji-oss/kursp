@@ -1,0 +1,10 @@
+name = input("imie ")
+nazwisko =input("naziwsko ")
+birthDate = input("data urdzenia (YYYY-MM-DD) ")
+possition = input("stanowisko ")
+salaryNet = float(input("wynagrodzenie "))
+
+print("Pan " + name + " " + nazwisko + " (ur. " + birthDate + " )")
+print ("Wiek " + str(2019 - int(birthDate[0:4])))
+print("Stanowisko: " + possition)
+print("Wynagrodzenie " + str(round(salaryNet,2)) + "zl")
