@@ -57,7 +57,6 @@ class StooqScrappingController:
     def getContentByUrl(self, url):
         content_page = requests.get(url)
         content_html = BeautifulSoup(content_page.content, 'html.parser')
-
         content = content_html.find_all("font", attrs={"id" : "f13"})     # szukamy znacznika font z parametrem id = f13
         filtered_content = list(content)[2]
         filtered_content = str(filtered_content).split("<br/><br/><br/>")[1].split("<p>")
@@ -70,8 +69,9 @@ class StooqScrappingController:
     def getDateAndTitle(self):
         for i, value in enumerate(self.result[1]):
             if i > 0:
+                self.result[1][i] = self.formatDateTime(self.result[1][i])
                 print(self.result[0][i])    # tytuły
-                print(self.result[1][i])    # daty
+                #print(self.result[1][i])    # daty
                 print(self.result[2][i])    # linki
                 self.getContentByUrl(self.result[2][i])
                 print(self.result[3][i-1])
@@ -88,9 +88,10 @@ class StooqScrappingController:
         hours_minutes = oldDate[2]
         import datetime
         newDate = str(datetime.datetime.today().year)+"-"+str(month)+"-"+str(day).zfill(2)+" "+hours_minutes
-        print(oldDate, newDate)
+        print(newDate)
         return newDate
 
 ssc = StooqScrappingController()
+ssc.deleteDataFromStooq()
 ssc.filterDateAndTitleAndUrl()
 ssc.getDateAndTitle()
